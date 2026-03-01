@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+data/
+logs/
+config/selectors.yaml
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+config/missing_domains.txt
+config/no_content_domains.txt
+config/selectors.yaml
+config/config.yaml
+news/
+news-standard/
+tests/
+.deploy/
+.cursor/

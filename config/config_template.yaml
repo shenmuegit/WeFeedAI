@@ -1,0 +1,76 @@
+# 爬取配置
+crawler:
+  google_news_url: "https://news.google.com/home?hl=en-US&gl=US&ceid=US%3Aen"
+  thread_pool_size: 5
+  request_delay: 1
+  scroll_wait_time: 2000
+  max_scroll_attempts: 50
+  session_file: "data/session_state.json"
+  proxy: ""  # 代理地址，留空则不使用代理
+
+# AI 配置
+ai:
+  provider: "deepseek"
+  api_key: ""
+  base_url: "https://api.deepseek.com"
+  model: "deepseek-chat"
+  thread_pool_size: 3
+  max_retries: 3
+  retry_delay: 2
+  temperature: 0.7
+  max_tokens: 4000
+
+# 豆包/火山方舟 API（供 news_standardize、news_deduplicate、wechat 草稿等使用）
+doubao:
+  api_key: ""
+
+# 微信配置
+# 获取凭据: https://developers.weixin.qq.com/doc/subscription/api/base/api_getaccesstoken.html
+# 新增草稿: https://developers.weixin.qq.com/doc/subscription/api/draftbox/draftmanage/api_draft_add.html
+wechat:
+  app_id: ""
+  app_secret: ""
+  api_base_url: "https://api.weixin.qq.com"
+  # 草稿箱：推送 news_deduplicated 到微信草稿用
+  draft:
+    default_thumb_media_id: ""  # 图文封面图永久素材ID，必填。通过「上传永久素材」接口获取后填入
+    use_doubao_format: true   # 为 true 时用豆包将 Markdown 整理成公众号风格后再转 HTML
+
+# 定时任务配置
+scheduler:
+  enabled: true
+  cron: "0 9 * * *"  # 每天 9 点执行
+
+# 日志配置
+logging:
+  level: "INFO"
+  file: "logs/app.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# 主题配置
+topics:
+  - name: "Top stories"
+    type: "headline"
+  - name: "World"
+    type: "subscription"
+  - name: "Politics"
+    type: "subscription"
+  - name: "Movies"
+    type: "subscription"
+  - name: "Business"
+    type: "subscription"
+  - name: "Economy"
+    type: "subscription"
+  - name: "Personal Finance"
+    type: "subscription"
+  - name: "Cryptocurrency"
+    type: "subscription"
+  - name: "Technology"
+    type: "subscription"
+  - name: "Cybersecurity"
+    type: "subscription"
+  - name: "Mental Health"
+    type: "subscription"
+  - name: "Education"
+    type: "subscription"
+
