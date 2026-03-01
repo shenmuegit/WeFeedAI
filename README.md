@@ -273,13 +273,6 @@ scheduler:
 - [Playwright](https://playwright.dev/) - 强大的浏览器自动化工具
 - [DeepSeek](https://www.deepseek.com/) - AI 内容处理服务
 - [APScheduler](https://apscheduler.readthedocs.io/) - Python 定时任务库
-
-## 📮 联系方式
-
-- 项目主页: https://github.com/yourusername/WeFeedAI
-- 问题反馈: https://github.com/yourusername/WeFeedAI/issues
-- 讨论区: https://github.com/yourusername/WeFeedAI/discussions
-
 ---
 
 **⭐ 如果这个项目对你有帮助，请给个 Star！**

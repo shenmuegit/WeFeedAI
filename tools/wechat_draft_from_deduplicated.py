@@ -181,7 +181,7 @@ def build_single_article(
     """
     title = (title or "今日要闻")[:32]
     if use_doubao_format:
-        api_key = (doubao_api_key or "").strip() or (config.get("doubao") or {}).get("api_key") or ""
+        api_key = (doubao_api_key or "").strip() or (load_config().get("doubao") or {}).get("api_key") or ""
         api_key = (api_key or "").strip()
         if not api_key:
             raise ValueError("使用豆包改写时需在 config 中配置 doubao.api_key")
