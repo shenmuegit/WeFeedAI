@@ -26,15 +26,21 @@ NEWS_STANDARD_DIR = PROJECT_ROOT / "news-standard"
 # 豆包（火山方舟）用于「微信公众号风格」改写
 ARK_API_BASE = "https://ark.cn-beijing.volces.com/api/v3/chat/completions"
 ARK_MODEL_ID = "doubao-seed-1-6-lite-251015"
-WECHAT_FORMAT_PROMPT = """你是一名微信公众号编辑。下面是要闻汇总的带编号纯文本，请将其转成符合微信公众号图文风格的 HTML，要求：
-1. 保持原有分类与条目内容不变，不增删新闻，不要润色或改写小标题与正文。
-2. 直接输出符合微信图文正文要求的HTML，样式要求是内联样式且宛如今天天气风格，不要输出代码块或其它说明。
+WECHAT_FORMAT_PROMPT = """你是微信公众号编辑。下面是要闻汇总，请完成两件事：
+1. 总结新闻（只总结，不要存在多余输出）并挑选你认为每个领域最重要的前10条新闻。
+2. 将总结后的新闻转为可直接填入公众号 content 的 HTML。
 
-带编号的原文：
+规则要求：
+- 只使用微信公众号支持的标签：p、h1~h6、strong、em、u、br、hr、ul、ol、li。
+- 不使用：html、head、body、style、class、id、script、iframe 等会被过滤的标签。
+- 所有样式必须用行内 style，不写头部样式。
+- 内容严肃、正式、客观，为国际要闻汇总。
+- 仅输出可直接填入公众号接口 content 字段的 HTML 字符串，不输出多余文字、解释、说明或分隔符。
+
+新闻：
 ---
 {plain_text}
----
-请只输出整理后的 HTML 正文，不要其他解释。"""
+---"""
 
 
 def load_config():

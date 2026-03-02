@@ -50,3 +50,4 @@ news-standard/
 tests/
 .deploy/
 .cursor/
+debug_html/
