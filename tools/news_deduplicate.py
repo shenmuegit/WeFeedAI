@@ -93,7 +93,6 @@ def call_doubao(user_content: str, api_key: str) -> str:
 
 def parse_dedup_response(reply: str, max_index: int) -> set:
     """解析去重 API 返回的编号组，返回应保留的编号集合。"""
-    keep_indices = set()
     reply = (reply or "").strip()
     if "无重复" in reply and "," not in reply:
         return set(range(1, max_index + 1))
@@ -113,15 +112,26 @@ def parse_dedup_response(reply: str, max_index: int) -> set:
                 continue
         if len(numbers) >= 2:
             duplicate_groups.append(numbers)
-    in_any_group = set()
+
+    # One article may appear in several groups. Treat those groups as one
+    # connected set so that only the earliest original article survives.
+    parent = list(range(max_index + 1))
+
+    def find(index: int) -> int:
+        while parent[index] != index:
+            parent[index] = parent[parent[index]]
+            index = parent[index]
+        return index
+
     for group in duplicate_groups:
-        for n in group:
-            in_any_group.add(n)
-        keep_indices.add(group[0])
-    for i in range(1, max_index + 1):
-        if i not in in_any_group:
-            keep_indices.add(i)
-    return keep_indices if keep_indices else set(range(1, max_index + 1))
+        for index in group[1:]:
+            parent[find(index)] = find(group[0])
+
+    earliest_by_group = {}
+    for index in range(1, max_index + 1):
+        root = find(index)
+        earliest_by_group[root] = min(earliest_by_group.get(root, index), index)
+    return set(earliest_by_group.values())
 
 
 def main():
