@@ -144,8 +144,7 @@ def items_to_plain_text(items: list) -> str:
 def _call_doubao_wechat_format(plain_text: str, api_key: str) -> str:
     """调用豆包将带编号的纯文本整理成符合微信公众号风格的 HTML 片段，返回可直接用作草稿 content 的 HTML。"""
     import urllib.request
-    safe_text = (plain_text or "").replace("{", "{{").replace("}", "}}")
-    user_content = WECHAT_FORMAT_PROMPT.format(plain_text=safe_text)
+    user_content = WECHAT_FORMAT_PROMPT.format(plain_text=plain_text or "")
     body = {
         "model": ARK_MODEL_ID,
         "messages": [{"role": "user", "content": user_content}],
