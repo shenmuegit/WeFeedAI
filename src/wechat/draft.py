@@ -24,6 +24,8 @@ class WeChatDraft:
         self.config = config
         self.logger = logger or get_logger()
         self.api_base_url = config.get("api_base_url", "https://api.weixin.qq.com")
+        draft_config = config.get("draft") or {}
+        self.default_thumb_media_id = (draft_config.get("default_thumb_media_id") or "").strip()
     
     def _convert_to_wechat_format(self, article_content: str, title: str, original_url: str = "") -> Dict[str, Any]:
         """转换文章内容为微信 API 格式"""
@@ -43,6 +45,7 @@ class WeChatDraft:
             "digest": digest,
             "content": article_content,
             "content_source_url": original_url,
+            "thumb_media_id": self.default_thumb_media_id,
             "need_open_comment": 0,
             "only_fans_can_comment": 0
         }
@@ -51,6 +54,9 @@ class WeChatDraft:
     
     def create_draft(self, article_content: str, title: str, original_url: str = "") -> Optional[str]:
         """创建单个草稿"""
+        if not self.default_thumb_media_id:
+            self.logger.error("创建图文草稿前需配置 wechat.draft.default_thumb_media_id")
+            return None
         access_token = self.auth.get_access_token()
         if not access_token:
             self.logger.error("无法获取 access_token")
