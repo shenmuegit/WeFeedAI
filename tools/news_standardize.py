@@ -62,9 +62,8 @@ def call_doubao(content: str, api_key: str) -> str:
     """调用豆包文本生成 API，返回助手回复文本"""
     import urllib.request
 
-    # 转义 content 中的花括号，避免被 .format() 当作占位符（如 JSON 片段导致报错）
-    safe_content = content.replace("{", "{{").replace("}", "}}")
-    user_content = PROMPT_TEMPLATE.format(content=safe_content)
+    # str.format 只解析模板；作为参数插入的新闻正文无需再次转义花括号。
+    user_content = PROMPT_TEMPLATE.format(content=content)
     body = {
         "model": MODEL_ID,
         "messages": [
