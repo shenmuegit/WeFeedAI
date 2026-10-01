@@ -121,6 +121,7 @@ class ArticleDetailCrawler:
     
     async def crawl_articles_batch(self, urls: List[str]) -> Dict[str, Optional[str]]:
         """批量爬取文章（使用线程池）"""
+        urls = list(dict.fromkeys(urls))
         self.logger.info(f"开始批量爬取 {len(urls)} 篇文章")
         
         results = {}
@@ -147,4 +148,3 @@ class ArticleDetailCrawler:
         self.logger.info(f"批量爬取完成，成功 {success_count}/{len(urls)} 篇")
         
         return results
-
